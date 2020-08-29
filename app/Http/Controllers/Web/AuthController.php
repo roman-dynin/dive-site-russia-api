@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -35,7 +36,7 @@ class AuthController extends Controller
          * @var \Illuminate\Contracts\Auth\Authenticatable $user
          */
 
-        $token = auth()->login($user);
+        $token = Auth::login($user);
 
         $token = base64_encode($token);
 
@@ -59,7 +60,7 @@ class AuthController extends Controller
          * @var \Illuminate\Contracts\Auth\Authenticatable $user
          */
 
-        $token = auth()->login($user);
+        $token = Auth::login($user);
 
         $token = base64_encode($token);
 
