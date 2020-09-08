@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 
 /**
- * Class IssueToken
+ * Class IssueJWT
  *
  * @package App\Console\Commands
  */
