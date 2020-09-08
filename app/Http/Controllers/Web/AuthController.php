@@ -7,14 +7,12 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 
 /**
- * Class AuthController
- *
- * @package App\Http\Controllers\Web
+ * Class AuthController.
  */
 class AuthController extends BaseController
 {
     /**
-     * Вход через ВКонтакте
+     * Вход через ВКонтакте.
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -24,7 +22,7 @@ class AuthController extends BaseController
     }
 
     /**
-     * Вход через ВКонтакте
+     * Вход через ВКонтакте.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -44,7 +42,6 @@ class AuthController extends BaseController
         /**
          * @var \Illuminate\Contracts\Auth\Authenticatable $user
          */
-
         $token = auth()->login($user);
 
         $token = base64_encode($token);

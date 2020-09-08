@@ -8,9 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class Job
- *
- * @package App\Jobs
+ * Class Job.
  */
 abstract class Job implements ShouldQueue
 {

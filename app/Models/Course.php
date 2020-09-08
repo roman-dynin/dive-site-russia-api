@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model,
-    SoftDeletes
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Course
+ * Class Course.
  *
- * @package App\Models
  *
  * @property int $user_id
  *
@@ -47,7 +44,7 @@ class Course extends Model
     ];
 
     /**
-     * Местонахождение
+     * Местонахождение.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

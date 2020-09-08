@@ -5,9 +5,7 @@ namespace App\Observers;
 use App\Models\Point;
 
 /**
- * Class CourseObserver
- *
- * @package App\Observers
+ * Class CourseObserver.
  */
 class PointObserver
 {
