@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Point;
-use App\Models\User;
 use Illuminate\Validation\Rule;
 use Tochka\JsonRpc\Exceptions\JsonRpcException;
 use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
+use App\Models\Point;
+use App\Models\User;
 
 /**
  * Class PointController.

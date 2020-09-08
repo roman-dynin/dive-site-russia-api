@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\BaseController;
 use App\Models\User;
-use Laravel\Socialite\Facades\Socialite;
 
 /**
  * Class AuthController.
