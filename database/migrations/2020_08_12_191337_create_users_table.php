@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\{
+    Migrations\Migration,
+    Schema\Blueprint
+};
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -19,11 +21,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
-            $table->string('oauth_provider');
+            $table->string('oauth_provider')->nullable();
 
-            $table->string('oauth_user_id');
+            $table->string('oauth_user_id')->nullable();
 
-            $table->string('nickname');
+            $table->string('username');
 
             $table->timestamps();
 

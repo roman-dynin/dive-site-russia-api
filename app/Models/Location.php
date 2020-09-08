@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model,
+    SoftDeletes
+};
 
 /**
  * Class Location
@@ -13,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Location extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,8 +37,8 @@ class Location extends Model
      */
     protected $casts = [
         'target_id'  => 'integer',
-        'lat'        => 'decimal:7',
-        'lng'        => 'decimal:7',
+        'lat'        => 'float',
+        'lng'        => 'float',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];

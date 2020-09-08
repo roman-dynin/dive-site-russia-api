@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model,
+    SoftDeletes
+};
 
 /**
  * Class Point
  *
  * @package App\Models
  *
+ * @property int $user_id
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Point extends Model
 {
+    use SoftDeletes;
+
     /**
      * Разное
      */
@@ -34,6 +41,7 @@ class Point extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'dive_site_id',
         'type',
         'title',
@@ -46,6 +54,7 @@ class Point extends Model
      * @var array
      */
     protected $casts = [
+        'user_id'      => 'integer',
         'dive_site_id' => 'integer',
         'type'         => 'integer',
         'created_at'   => 'datetime:Y-m-d H:i:s',

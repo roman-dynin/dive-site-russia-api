@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c97d4ab6ff18347c7a9e5e2a5b316503",
+    "content-hash": "15cff73848b8ad1247bc7ec9254aa4da",
     "packages": [
+        {
+            "name": "askedio/laravel-soft-cascade",
+            "version": "7.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Askedio/laravel-soft-cascade.git",
+                "reference": "b64622be66f93c8749696cc212626ca8c85b4711"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Askedio/laravel-soft-cascade/zipball/b64622be66f93c8749696cc212626ca8c85b4711",
+                "reference": "b64622be66f93c8749696cc212626ca8c85b4711",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "^7.0",
+                "illuminate/database": "^7.0",
+                "illuminate/events": "^7.0",
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "codacy/coverage": "dev-master",
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Askedio\\SoftCascade\\Providers\\GenericServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Askedio\\SoftCascade\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Laravel Cascade Soft Delete & Restore",
+            "time": "2020-09-05T17:08:18+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.1",
@@ -3157,50 +3200,6 @@
             "time": "2020-03-08T16:54:44+00:00"
         },
         {
-            "name": "socialiteproviders/telegram",
-            "version": "v3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Telegram.git",
-                "reference": "b8b102e960504123d2ef048c5a43a9855d2477e4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Telegram/zipball/b8b102e960504123d2ef048c5a43a9855d2477e4",
-                "reference": "b8b102e960504123d2ef048c5a43a9855d2477e4",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2",
-                "socialiteproviders/manager": "~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Telegram\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adnan RIHAN",
-                    "email": "adnan@rihan.fr"
-                }
-            ],
-            "description": "Telegram Authentication Provider for Laravel Socialite",
-            "time": "2020-08-11T10:12:51+00:00"
-        },
-        {
             "name": "socialiteproviders/vkontakte",
             "version": "v4.1.0",
             "source": {
@@ -3237,43 +3236,6 @@
             ],
             "description": "VKontakte OAuth2 Provider for Laravel Socialite",
             "time": "2019-12-08T14:15:15+00:00"
-        },
-        {
-            "name": "socialiteproviders/zoho",
-            "version": "v3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Zoho.git",
-                "reference": "3268f7f28092671a64b3dbf911a4b473b8bb4cbb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Zoho/zipball/3268f7f28092671a64b3dbf911a4b473b8bb4cbb",
-                "reference": "3268f7f28092671a64b3dbf911a4b473b8bb4cbb",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9",
-                "socialiteproviders/manager": "~2.0 || ~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Zoho\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "glowlogix",
-                    "email": "support@glowlogix.com"
-                }
-            ],
-            "description": "Zoho OAuth2 Provider for Laravel Socialite",
-            "time": "2020-07-07T12:00:37+00:00"
         },
         {
             "name": "symfony/console",
@@ -6732,6 +6694,87 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "socialiteproviders/telegram",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Telegram.git",
+                "reference": "b8b102e960504123d2ef048c5a43a9855d2477e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Telegram/zipball/b8b102e960504123d2ef048c5a43a9855d2477e4",
+                "reference": "b8b102e960504123d2ef048c5a43a9855d2477e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "socialiteproviders/manager": "~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Telegram\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adnan RIHAN",
+                    "email": "adnan@rihan.fr"
+                }
+            ],
+            "description": "Telegram Authentication Provider for Laravel Socialite",
+            "time": "2020-08-11T10:12:51+00:00"
+        },
+        {
+            "name": "socialiteproviders/zoho",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Zoho.git",
+                "reference": "3268f7f28092671a64b3dbf911a4b473b8bb4cbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Zoho/zipball/3268f7f28092671a64b3dbf911a4b473b8bb4cbb",
+                "reference": "3268f7f28092671a64b3dbf911a4b473b8bb4cbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Zoho\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "glowlogix",
+                    "email": "support@glowlogix.com"
+                }
+            ],
+            "description": "Zoho OAuth2 Provider for Laravel Socialite",
+            "time": "2020-07-07T12:00:37+00:00"
         },
         {
             "name": "theseer/tokenizer",

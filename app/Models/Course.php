@@ -2,23 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model,
+    SoftDeletes
+};
 
 /**
  * Class Course
  *
  * @package App\Models
  *
+ * @property int $user_id
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Course extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'dive_site_id',
         'title',
         'description',
@@ -31,6 +39,7 @@ class Course extends Model
      * @var array
      */
     protected $casts = [
+        'user_id'      => 'integer',
         'dive_site_id' => 'integer',
         'direction'    => 'integer',
         'created_at'   => 'datetime:Y-m-d H:i:s',

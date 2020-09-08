@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\{
+    Migrations\Migration,
+    Schema\Blueprint
+};
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -19,6 +21,8 @@ class CreatePointsTable extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('user_id');
+
             $table->foreignId('dive_site_id');
 
             $table->tinyInteger('type');
@@ -28,6 +32,8 @@ class CreatePointsTable extends Migration
             $table->text('description')->nullable();
 
             $table->timestamps();
+
+            $table->softDeletes();
 
             $table->index([
                 'dive_site_id',

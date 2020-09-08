@@ -38,7 +38,7 @@ class AuthController extends BaseController
             ->firstOrCreate([
                 'oauth_provider' => 'vkontakte',
                 'oauth_user_id'  => $user->getId(),
-                'nickname'       => $user->getNickname(),
+                'username'       => $user->getNickname(),
             ]);
 
         /**

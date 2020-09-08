@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\{
+    Migrations\Migration,
+    Schema\Blueprint
+};
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -19,6 +21,8 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('user_id');
+
             $table->foreignId('dive_site_id');
 
             $table->string('title');
@@ -28,6 +32,8 @@ class CreateCoursesTable extends Migration
             $table->smallInteger('direction')->default(0);
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

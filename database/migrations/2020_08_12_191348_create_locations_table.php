@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\{
+    Migrations\Migration,
+    Schema\Blueprint
+};
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -28,6 +30,8 @@ class CreateLocationsTable extends Migration
             $table->decimal('lng', 10, 7);
 
             $table->timestamps();
+
+            $table->softDeletes();
 
             $table->index([
                 'target_type',

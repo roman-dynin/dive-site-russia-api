@@ -3,8 +3,16 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\DiveSite;
-use App\Observers\DiveSiteObserver;
+use App\Models\{
+    DiveSite,
+    Point,
+    Course
+};
+use App\Observers\{
+    DiveSiteObserver,
+    PointObserver,
+    CourseObserver
+};
 
 /**
  * Class AppServiceProvider
@@ -19,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         DiveSite::observe(DiveSiteObserver::class);
+
+        Point::observe(PointObserver::class);
+
+        Course::observe(CourseObserver::class);
     }
 
     /**

@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Validation\Rule;
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use Tochka\JsonRpc\Exceptions\JsonRpcException;
-use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
-use App\Models\Point;
+use Tochka\JsonRpc\Exceptions\{
+    JsonRpcException,
+    RPC\InvalidParametersException
+};
+use App\Models\{
+    User,
+    Point
+};
 
 /**
  * Class PointController
@@ -46,6 +51,11 @@ class PointController
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
         $data = $this->validateAndFilter([
             'point' => [
                 'array',
@@ -54,7 +64,7 @@ class PointController
             'point.dive_site_id' => [
                 'numeric',
                 'required',
-                'exists:dive_sites,id',
+                'exists:dive_sites,id,deleted_at,NULL',
             ],
             'point.type' => [
                 'numeric',
@@ -78,11 +88,11 @@ class PointController
                 'array',
                 'required',
             ],
-            'point.lat' => [
+            'location.lat' => [
                 'numeric',
                 'required',
             ],
-            'point.lng' => [
+            'location.lng' => [
                 'numeric',
                 'required',
             ],
@@ -90,7 +100,9 @@ class PointController
 
         $point = new Point();
 
-        $point->fill($data);
+        $point->user_id = $user->id;
+
+        $point->fill($data['point']);
 
         $point->save();
 

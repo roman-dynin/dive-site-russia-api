@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use Tochka\JsonRpc\Exceptions\JsonRpcException;
-use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
-use App\Models\Course;
+use Tochka\JsonRpc\Exceptions\{
+    JsonRpcException,
+    RPC\InvalidParametersException
+};
+use App\Models\{
+    User,
+    Course
+};
 
 /**
  * Class CourseController
@@ -43,6 +48,11 @@ class CourseController
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
         $data = $this->validateAndFilter([
             'course' => [
                 'array',
@@ -51,7 +61,7 @@ class CourseController
             'course.dive_site_id' => [
                 'numeric',
                 'required',
-                'exists:dive_sites,id',
+                'exists:dive_sites,id,deleted_at,NULL',
             ],
             'course.title' => [
                 'string',
@@ -88,6 +98,8 @@ class CourseController
         ]);
 
         $course = new Course();
+
+        $course->user_id = $user->id;
 
         $course->fill($data['course']);
 

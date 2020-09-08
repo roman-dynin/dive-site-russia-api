@@ -17,5 +17,13 @@ class DiveSiteObserver
     public function deleting(DiveSite $diveSite)
     {
         $diveSite->location()->delete();
+
+        foreach ($diveSite->courses as $course) {
+            $course->delete();
+        }
+
+        foreach ($diveSite->points as $point) {
+            $point->delete();
+        }
     }
 }

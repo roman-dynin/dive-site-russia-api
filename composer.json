@@ -1,10 +1,11 @@
 {
-    "name": "dive-site-russia-api",
+    "name": "dive-site-russia/api",
     "description": "Каталог интересных мест для погружения в России",
     "license": "MIT",
     "type": "project",
     "require": {
         "php": "^7.2.5",
+        "askedio/laravel-soft-cascade": "^7.0",
         "fruitcake/laravel-cors": "^2.0",
         "laravel/lumen-framework": "^7.0",
         "laravel/socialite": "^4.4",

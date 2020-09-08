@@ -79,7 +79,7 @@ $app->configure('services');
 */
 
 $app->middleware([
-    \Fruitcake\Cors\HandleCors::class,
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 /*
@@ -97,13 +97,13 @@ $app->register(App\Providers\AppServiceProvider::class);
 
 $app->register(App\Providers\EventServiceProvider::class);
 
-$app->register(\Tochka\JsonRpc\JsonRpcServiceProvider::class);
+$app->register(Tochka\JsonRpc\JsonRpcServiceProvider::class);
 
-$app->register(\Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
-$app->register(\SocialiteProviders\Manager\ServiceProvider::class);
+$app->register(SocialiteProviders\Manager\ServiceProvider::class);
 
-$app->register(\Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

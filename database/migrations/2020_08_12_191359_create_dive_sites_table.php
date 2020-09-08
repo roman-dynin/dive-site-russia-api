@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\{
+    Migrations\Migration,
+    Schema\Blueprint
+};
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -19,11 +21,15 @@ class CreateDiveSitesTable extends Migration
         Schema::create('dive_sites', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('user_id');
+
             $table->string('title');
 
             $table->text('description')->nullable();
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
