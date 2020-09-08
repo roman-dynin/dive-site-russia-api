@@ -1,13 +1,11 @@
 <?php
 
-use Illuminate\Database\{
-    Migrations\Migration,
-    Schema\Blueprint
-};
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateDiveSitesTable
+ * Class CreateDiveSitesTable.
  */
 class CreateDiveSitesTable extends Migration
 {

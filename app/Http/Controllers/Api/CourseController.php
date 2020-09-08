@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Course;
+use App\Models\User;
+use Tochka\JsonRpc\Exceptions\JsonRpcException;
+use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use Tochka\JsonRpc\Exceptions\{
-    JsonRpcException,
-    RPC\InvalidParametersException
-};
-use App\Models\{
-    User,
-    Course
-};
 
 /**
- * Class CourseController
- *
- * @package App\Http\Controllers\Api
+ * Class CourseController.
  */
 class CourseController
 {
     use JsonRpcController;
 
     /**
-     * Получение курсов
+     * Получение курсов.
      *
      * @return array
      */
@@ -38,13 +32,13 @@ class CourseController
     }
 
     /**
-     * Добавление курса
+     * Добавление курса.
      *
      * @throws JsonRpcException|InvalidParametersException
      */
     public function addCourse()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 

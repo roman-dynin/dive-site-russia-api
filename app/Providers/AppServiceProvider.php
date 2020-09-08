@@ -2,22 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Course;
+use App\Models\DiveSite;
+use App\Models\Point;
+use App\Observers\CourseObserver;
+use App\Observers\DiveSiteObserver;
+use App\Observers\PointObserver;
 use Illuminate\Support\ServiceProvider;
-use App\Models\{
-    DiveSite,
-    Point,
-    Course
-};
-use App\Observers\{
-    DiveSiteObserver,
-    PointObserver,
-    CourseObserver
-};
 
 /**
- * Class AppServiceProvider
- *
- * @package App\Providers
+ * Class AppServiceProvider.
  */
 class AppServiceProvider extends ServiceProvider
 {

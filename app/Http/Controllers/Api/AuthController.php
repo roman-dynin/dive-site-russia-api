@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\BaseController;
 
 /**
- * Class AuthController
- *
- * @package App\Http\Controllers\Api
+ * Class AuthController.
  */
 class AuthController extends BaseController
 {
     /**
-     * Получение пользователя
+     * Получение пользователя.
      *
      * @return \Illuminate\Http\JsonResponse
      */

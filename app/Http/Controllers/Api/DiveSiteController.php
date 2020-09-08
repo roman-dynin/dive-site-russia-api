@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\DiveSite;
+use App\Models\User;
+use Tochka\JsonRpc\Exceptions\JsonRpcException;
+use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use Tochka\JsonRpc\Exceptions\{
-    JsonRpcException,
-    RPC\InvalidParametersException
-};
-use App\Models\{
-    User,
-    DiveSite
-};
 
 /**
- * Class DiveSiteController
- *
- * @package App\Http\Controllers\Api
+ * Class DiveSiteController.
  */
 class DiveSiteController
 {
     use JsonRpcController;
 
     /**
-     * Получение мест погружений
+     * Получение мест погружений.
      *
      * @return array
      */
@@ -38,7 +32,7 @@ class DiveSiteController
     }
 
     /**
-     * Добавление места погружения
+     * Добавление места погружения.
      *
      * @return array
      *
@@ -46,7 +40,7 @@ class DiveSiteController
      */
     public function addDiveSite()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 
@@ -104,7 +98,7 @@ class DiveSiteController
     }
 
     /**
-     * Редактирование места погружения
+     * Редактирование места погружения.
      *
      * @return array
      *
@@ -112,7 +106,7 @@ class DiveSiteController
      */
     public function updateDiveSiteById()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 
@@ -171,7 +165,7 @@ class DiveSiteController
     }
 
     /**
-     * Удаление места погружения
+     * Удаление места погружения.
      *
      * @return array
      *
@@ -179,7 +173,7 @@ class DiveSiteController
      */
     public function deleteDiveSiteById()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 

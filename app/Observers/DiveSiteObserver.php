@@ -5,9 +5,7 @@ namespace App\Observers;
 use App\Models\DiveSite;
 
 /**
- * Class DiveSiteObserver
- *
- * @package App\Observers
+ * Class DiveSiteObserver.
  */
 class DiveSiteObserver
 {

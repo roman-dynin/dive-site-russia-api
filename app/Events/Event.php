@@ -5,9 +5,7 @@ namespace App\Events;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class Event
- *
- * @package App\Events
+ * Class Event.
  */
 abstract class Event
 {

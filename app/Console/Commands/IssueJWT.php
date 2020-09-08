@@ -6,9 +6,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 
 /**
- * Class IssueJWT
- *
- * @package App\Console\Commands
+ * Class IssueJWT.
  */
 class IssueJWT extends Command
 {
@@ -43,7 +41,7 @@ class IssueJWT extends Command
      */
     public function handle()
     {
-        $userId = (int)$this->argument('user_id');
+        $userId = (int) $this->argument('user_id');
 
         /**
          * @var \Illuminate\Contracts\Auth\Authenticatable $user

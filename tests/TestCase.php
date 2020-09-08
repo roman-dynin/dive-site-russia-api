@@ -3,7 +3,7 @@
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 /**
- * Class TestCase
+ * Class TestCase.
  */
 abstract class TestCase extends BaseTestCase
 {

@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model,
-    SoftDeletes
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class DiveSite
+ * Class DiveSite.
  *
- * @package App\Models
  *
  * @property int $user_id
  * @property Course[] $courses
@@ -45,7 +42,7 @@ class DiveSite extends Model
     ];
 
     /**
-     * Местонахождение
+     * Местонахождение.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
@@ -55,7 +52,7 @@ class DiveSite extends Model
     }
 
     /**
-     * Курсы
+     * Курсы.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -65,7 +62,7 @@ class DiveSite extends Model
     }
 
     /**
-     * Точки
+     * Точки.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

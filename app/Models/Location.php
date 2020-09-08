@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model,
-    SoftDeletes
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Location
+ * Class Location.
  *
- * @package App\Models
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */

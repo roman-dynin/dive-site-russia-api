@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model,
-    SoftDeletes
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Point
+ * Class Point.
  *
- * @package App\Models
  *
  * @property int $user_id
  *
@@ -21,12 +18,12 @@ class Point extends Model
     use SoftDeletes;
 
     /**
-     * Разное
+     * Разное.
      */
     public const TYPE_MISC = 0;
 
     /**
-     * Берег
+     * Берег.
      */
     public const TYPE_SHORE = 1;
 
@@ -62,7 +59,7 @@ class Point extends Model
     ];
 
     /**
-     * Местонахождение
+     * Местонахождение.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */

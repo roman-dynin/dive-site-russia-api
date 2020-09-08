@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Point;
+use App\Models\User;
 use Illuminate\Validation\Rule;
+use Tochka\JsonRpc\Exceptions\JsonRpcException;
+use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use Tochka\JsonRpc\Exceptions\{
-    JsonRpcException,
-    RPC\InvalidParametersException
-};
-use App\Models\{
-    User,
-    Point
-};
 
 /**
- * Class PointController
- *
- * @package App\Http\Controllers\Api
+ * Class PointController.
  */
 class PointController
 {
     use JsonRpcController;
 
     /**
-     * Получение точек
+     * Получение точек.
      *
      * @return array
      */
@@ -39,7 +33,7 @@ class PointController
     }
 
     /**
-     * Добавление точки
+     * Добавление точки.
      *
      * @return array
      *
@@ -47,7 +41,7 @@ class PointController
      */
     public function addPoint()
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
 
