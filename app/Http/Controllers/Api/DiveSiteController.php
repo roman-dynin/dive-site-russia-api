@@ -155,7 +155,7 @@ class DiveSiteController
     }
 
     /**
-     * Удаление места
+     * Удаление места погружения
      *
      * @return array
      *
