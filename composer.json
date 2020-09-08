@@ -1,7 +1,6 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "dive-site-russia-api",
+    "description": "Каталог интересных мест для погружения в России",
     "license": "MIT",
     "type": "project",
     "require": {
@@ -9,9 +8,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "laravel/lumen-framework": "^7.0",
         "laravel/socialite": "^4.4",
-        "socialiteproviders/telegram": "^3.0",
         "socialiteproviders/vkontakte": "^4.1",
-        "socialiteproviders/zoho": "^3.0",
         "tochka-developers/jsonrpc": "^3.0",
         "tymon/jwt-auth": "^1.0"
     },

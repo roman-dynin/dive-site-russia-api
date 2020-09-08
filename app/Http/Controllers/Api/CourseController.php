@@ -3,19 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use Tochka\JsonRpc\Traits\JsonRpcController;
+use Tochka\JsonRpc\Exceptions\JsonRpcException;
 use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use App\Models\Course;
 
+/**
+ * Class CourseController
+ *
+ * @package App\Http\Controllers\Api
+ */
 class CourseController
 {
     use JsonRpcController;
 
     /**
+     * Получение курсов
+     *
      * @return array
      */
     public function getCourses()
     {
-        $courses = Course::with('points')->get();
+        $courses = Course::query()
+            ->with('locations')
+            ->get();
 
         return [
             'courses' => $courses,
@@ -23,40 +33,55 @@ class CourseController
     }
 
     /**
-     * @throws InvalidParametersException
+     * Добавление курса
+     *
+     * @throws JsonRpcException|InvalidParametersException
      */
     public function addCourse()
     {
+        if (!auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
         $data = $this->validateAndFilter([
-            'title' => [
+            'course' => [
+                'array',
+                'required',
+            ],
+            'course.dive_site_id' => [
+                'numeric',
+                'required',
+                'exists:dive_sites,id',
+            ],
+            'course.title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'description' => [
+            'course.description' => [
                 'string',
                 'nullable',
             ],
-            'direction' => [
+            'course.direction' => [
                 'numeric',
                 'required',
                 'min:0',
                 'max:360',
             ],
-            'points' => [
+            'locations' => [
                 'array',
                 'required',
                 'size:2',
             ],
-            'points.*' => [
+            'locations.*' => [
                 'array',
                 'required',
             ],
-            'points.*.lat' => [
+            'locations.*.lat' => [
                 'numeric',
                 'required',
             ],
-            'points.*.lng' => [
+            'locations.*.lng' => [
                 'numeric',
                 'required',
             ],
@@ -64,37 +89,19 @@ class CourseController
 
         $course = new Course();
 
-        $course->fill($data);
+        $course->fill($data['course']);
 
         $course->save();
 
-        $points = array_map(function ($point) {
-            return [
-                'location' => [
-                    $point['lat'],
-                    $point['lng'],
-                ],
-            ];
-        }, $data['points']);
+        $course->locations()->createMany($data['locations']);
 
-        $course->points()->createMany($points);
-
-        $course->refresh();
-
-        $course->load('points');
+        $course
+            ->refresh()
+            ->load('locations');
 
         return [
-            'course' => $course,
+            'message' => 'Готово!',
+            'course'  => $course,
         ];
-    }
-
-    public function updateCourseById()
-    {
-
-    }
-
-    public function deleteCourseById()
-    {
-
     }
 }

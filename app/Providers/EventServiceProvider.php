@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
+/**
+ * Class EventServiceProvider
+ *
+ * @package App\Providers
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +19,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\\VKontakte\\VKontakteExtendSocialite@handle',
-            'SocialiteProviders\\Telegram\\TelegramExtendSocialite@handle',
         ],
     ];
 }

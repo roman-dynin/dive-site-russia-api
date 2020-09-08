@@ -16,6 +16,6 @@ class DiveSiteObserver
      */
     public function deleting(DiveSite $diveSite)
     {
-        $diveSite->point()->delete();
+        $diveSite->location()->delete();
     }
 }

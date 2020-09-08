@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 
-class AuthController extends Controller
+/**
+ * Class AuthController
+ *
+ * @package App\Http\Controllers\Web
+ */
+class AuthController extends BaseController
 {
+    /**
+     * Вход через ВКонтакте
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function vkontakte()
     {
         return Socialite::driver('vkontakte')->redirect();
     }
 
-    public function telegram()
-    {
-        return Socialite::driver('telegram')->redirect();
-    }
-
+    /**
+     * Вход через ВКонтакте
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function vkontakteCallback()
     {
         $user = Socialite::driver('vkontakte')->user();
@@ -36,34 +45,10 @@ class AuthController extends Controller
          * @var \Illuminate\Contracts\Auth\Authenticatable $user
          */
 
-        $token = Auth::login($user);
+        $token = auth()->login($user);
 
         $token = base64_encode($token);
 
-        return redirect()->to(env('APP_FRONTEND_URL') . '?token=' . $token);
-    }
-
-    public function telegramCallback()
-    {
-        $user = Socialite::driver('telegram')->user();
-
-        $user = User::query()
-            ->where('oauth_provider', 'telegram')
-            ->where('oauth_user_id', $user->getId())
-            ->firstOrCreate([
-                'oauth_provider' => 'telegram',
-                'oauth_user_id'  => $user->getId(),
-                'nickname'       => $user->getNickname(),
-            ]);
-
-        /**
-         * @var \Illuminate\Contracts\Auth\Authenticatable $user
-         */
-
-        $token = Auth::login($user);
-
-        $token = base64_encode($token);
-
-        return redirect()->to(env('APP_FRONTEND_URL') . '?token=' . $token);
+        return redirect()->to(env('APP_FRONTEND_URL').'?token='.$token);
     }
 }

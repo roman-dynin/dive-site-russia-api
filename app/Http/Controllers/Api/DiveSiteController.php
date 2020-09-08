@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\DiveSite;
 use Tochka\JsonRpc\Traits\JsonRpcController;
 use Tochka\JsonRpc\Exceptions\JsonRpcException;
 use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
+use App\Models\DiveSite;
 
+/**
+ * Class DiveSiteController
+ *
+ * @package App\Http\Controllers\Api
+ */
 class DiveSiteController
 {
     use JsonRpcController;
 
     /**
-     * Получение мест
+     * Получение мест погружений
      *
      * @return array
-     *
-     * @throws JsonRpcException
      */
     public function getDiveSites()
     {
-        if (!auth()->check()) {
-            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
-        }
-
         $diveSites = DiveSite::query()
-            ->with('point')
+            ->with('location')
             ->get();
 
         return [
@@ -34,21 +33,29 @@ class DiveSiteController
     }
 
     /**
-     * Добавление места
+     * Добавление места погружения
      *
      * @return array
      *
-     * @throws InvalidParametersException
+     * @throws JsonRpcException|InvalidParametersException
      */
     public function addDiveSite()
     {
+        if (!auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
         $data = $this->validateAndFilter([
-            'title' => [
+            'dive_site' => [
+                'array',
+                'required',
+            ],
+            'dive_site.title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'description' => [
+            'dive_site.description' => [
                 'string',
                 'nullable',
             ],
@@ -68,73 +75,82 @@ class DiveSiteController
 
         $diveSite = new DiveSite();
 
-        $diveSite->fill($data);
+        $diveSite->fill($data['dive_site']);
 
         $diveSite->save();
 
-        $diveSite->point()->create([
-            'location' => [
-                $data['location']['lat'],
-                $data['location']['lng'],
-            ]
-        ]);
+        $diveSite->location()->create($data['location']);
 
-        $diveSite->refresh();
-
-        $diveSite->load('point');
+        $diveSite
+            ->refresh()
+            ->load('location');
 
         return [
+            'message'  => 'Готово!',
             'diveSite' => $diveSite,
         ];
     }
 
     /**
-     * Редактирование места
+     * Редактирование места погружения
      *
      * @return array
      *
-     * @throws InvalidParametersException
+     * @throws JsonRpcException|InvalidParametersException
      */
     public function updateDiveSiteById()
     {
+        if (!auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
         $data = $this->validateAndFilter([
-            'id' => [
+            'dive_site' => [
+                'array',
+                'required',
+            ],
+            'dive_site.id' => [
                 'numeric',
                 'required',
                 'exists:dive_sites',
             ],
-            'title' => [
+            'dive_site.title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'description' => [
+            'dive_site.description' => [
                 'string',
                 'nullable',
             ],
             'location' => [
                 'array',
                 'required',
-                'size:2',
             ],
-            'location.*' => [
+            'location.lat' => [
+                'numeric',
+                'required',
+            ],
+            'location.lng' => [
                 'numeric',
                 'required',
             ],
         ]);
 
-        $diveSite = DiveSite::find($data['id']);
+        /**
+         * @var DiveSite $diveSite
+         */
+        $diveSite = DiveSite::query()->find($data['dive_site']['id']);
 
-        $diveSite->fill($data);
+        $diveSite->fill($data['dive_site']);
 
         $diveSite->save();
 
-        $diveSite->point->fill($data);
-
-        $diveSite->point->save();
+        $diveSite->location()->update($data['location']);
 
         return [
-            'message' => 'Готово!',
+            'message'  => 'Готово!',
+            'diveSite' => $diveSite,
         ];
     }
 
@@ -143,19 +159,30 @@ class DiveSiteController
      *
      * @return array
      *
-     * @throws InvalidParametersException|\Exception
+     * @throws JsonRpcException|InvalidParametersException|\Exception
      */
     public function deleteDiveSiteById()
     {
+        if (!auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
         $data = $this->validateAndFilter([
-            'id' => [
+            'dive_site' => [
+                'array',
+                'required',
+            ],
+            'dive_site.id' => [
                 'numeric',
                 'required',
                 'exists:dive_sites',
             ],
         ]);
 
-        $diveSite = DiveSite::find($data['id']);
+        /**
+         * @var DiveSite $diveSite
+         */
+        $diveSite = DiveSite::query()->find($data['id']);
 
         $diveSite->delete();
 

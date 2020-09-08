@@ -19,13 +19,31 @@ class Course extends Model
      * @var array
      */
     protected $fillable = [
+        'dive_site_id',
         'title',
         'description',
         'direction',
     ];
 
-    public function points()
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'dive_site_id' => 'integer',
+        'direction'    => 'integer',
+        'created_at'   => 'datetime:Y-m-d H:i:s',
+        'updated_at'   => 'datetime:Y-m-d H:i:s',
+    ];
+
+    /**
+     * Местонахождение
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function locations()
     {
-        return $this->morphMany(Point::class, 'target');
+        return $this->morphMany(Location::class, 'target');
     }
 }

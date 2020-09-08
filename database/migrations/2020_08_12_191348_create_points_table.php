@@ -4,7 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubmergedObjectsTable extends Migration
+/**
+ * Class CreatePointsTable
+ */
+class CreatePointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +16,22 @@ class CreateSubmergedObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('submerged_objects', function (Blueprint $table) {
+        Schema::create('points', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('dive_site_id');
+
+            $table->tinyInteger('type');
 
             $table->string('title');
 
             $table->text('description')->nullable();
 
             $table->timestamps();
+
+            $table->index([
+                'dive_site_id',
+            ]);
         });
     }
 
@@ -31,6 +42,6 @@ class CreateSubmergedObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('submerged_objects');
+        Schema::dropIfExists('points');
     }
 }

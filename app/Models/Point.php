@@ -3,19 +3,41 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Casts\Location;
 
+/**
+ * Class Point
+ *
+ * @package App\Models
+ *
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
 class Point extends Model
 {
+    /**
+     * Разное
+     */
+    public const TYPE_MISC = 0;
+
+    /**
+     * Берег
+     */
+    public const TYPE_SHORE = 1;
+
+    /**
+     * Затопленный объект
+     */
+    public const TYPE_SUBMERGED_OBJECT = 2;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'target_type',
-        'target_id',
-        'location',
+        'dive_site_id',
+        'type',
+        'title',
+        'description',
     ];
 
     /**
@@ -24,8 +46,19 @@ class Point extends Model
      * @var array
      */
     protected $casts = [
-        'location'   => Location::class,
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'dive_site_id' => 'integer',
+        'type'         => 'integer',
+        'created_at'   => 'datetime:Y-m-d H:i:s',
+        'updated_at'   => 'datetime:Y-m-d H:i:s',
     ];
+
+    /**
+     * Местонахождение
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function location()
+    {
+        return $this->morphOne(Location::class, 'target');
+    }
 }

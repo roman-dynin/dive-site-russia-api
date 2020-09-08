@@ -11,11 +11,3 @@ $router->get('auth/vkontakte', [
 $router->get('auth/vkontakte/callback', [
     'uses' => 'AuthController@vkontakteCallback',
 ]);
-
-$router->get('auth/telegram', [
-    'uses' => 'AuthController@telegram',
-]);
-
-$router->get('auth/telegram/callback', [
-    'uses' => 'AuthController@telegramCallback',
-]);

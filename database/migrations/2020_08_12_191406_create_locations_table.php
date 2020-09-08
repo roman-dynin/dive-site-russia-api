@@ -3,9 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-class CreatePointsTable extends Migration
+/**
+ * Class CreateLocationsTable
+ */
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +16,24 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('points', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
 
             $table->string('target_type');
 
             $table->integer('target_id');
 
-            $table->string('location');
+            $table->decimal('lat', 10, 7);
+
+            $table->decimal('lng', 10, 7);
 
             $table->timestamps();
-        });
 
-        DB::statement('ALTER TABLE points ALTER COLUMN location TYPE POINT USING location::point'); // Фикс. миграции
+            $table->index([
+                'target_type',
+                'target_id',
+            ]);
+        });
     }
 
     /**
@@ -36,6 +43,6 @@ class CreatePointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('points');
+        Schema::dropIfExists('locations');
     }
 }

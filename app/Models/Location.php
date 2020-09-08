@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class DiveSite
+ * Class Location
  *
  * @package App\Models
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class DiveSite extends Model
+class Location extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -19,8 +19,10 @@ class DiveSite extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'description',
+        'target_type',
+        'target_id',
+        'lat',
+        'lng',
     ];
 
     /**
@@ -29,17 +31,10 @@ class DiveSite extends Model
      * @var array
      */
     protected $casts = [
+        'target_id'  => 'integer',
+        'lat'        => 'decimal:7',
+        'lng'        => 'decimal:7',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
-
-    /**
-     * Местонахождение
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
-     */
-    public function location()
-    {
-        return $this->morphOne(Location::class, 'target');
-    }
 }

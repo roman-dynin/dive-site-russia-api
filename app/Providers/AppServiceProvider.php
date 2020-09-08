@@ -6,6 +6,11 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\DiveSite;
 use App\Observers\DiveSiteObserver;
 
+/**
+ * Class AppServiceProvider
+ *
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
