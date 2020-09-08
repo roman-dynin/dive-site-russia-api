@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Course;
+use App\Models\User;
 use Tochka\JsonRpc\Exceptions\JsonRpcException;
 use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
-use App\Models\Course;
-use App\Models\User;
 
 /**
  * Class CourseController.
