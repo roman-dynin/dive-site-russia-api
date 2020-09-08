@@ -1,8 +1,4 @@
-php:
-  preset: laravel
-  disabled:
-    - unused_use
+preset: laravel
 
-finder:
-  name:
-    - "*.php"
+disabled:
+  - unused_use
