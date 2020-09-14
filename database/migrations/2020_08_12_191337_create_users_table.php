@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
 
             $table->string('oauth_user_id')->nullable();
 
-            $table->string('username');
+            $table->string('nickname');
 
             $table->timestamps();
 

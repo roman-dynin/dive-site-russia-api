@@ -20,8 +20,8 @@ class DiveSiteObserver
             $course->delete();
         }
 
-        foreach ($diveSite->points as $point) {
-            $point->delete();
+        foreach ($diveSite->placemarks as $placemark) {
+            $placemark->delete();
         }
     }
 }

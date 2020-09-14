@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Point.
+ * Class Placemark.
  *
  *
  * @property int $user_id
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Point extends Model
+class Placemark extends Model
 {
     use SoftDeletes;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Point;
+use App\Models\Placemark;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Tochka\JsonRpc\Exceptions\JsonRpcException;
@@ -10,9 +10,9 @@ use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
 
 /**
- * Class PointController.
+ * Class PlacemarkController.
  */
-class PointController
+class PlacemarkController
 {
     use JsonRpcController;
 
@@ -21,25 +21,51 @@ class PointController
      *
      * @return array
      */
-    public function getPoints()
+    public function getPlacemarks()
     {
-        $points = Point::query()
+        $placemarks = Placemark::query()
             ->with('location')
             ->get();
 
         return [
-            'points' => $points,
+            'placemarks' => $placemarks,
         ];
     }
 
     /**
-     * Добавление точки.
+     * Получение точки.
+     *
+     * @return array
+     *
+     * @throws InvalidParametersException
+     */
+    public function getPlacemarkById()
+    {
+        $data = $this->validateAndFilter([
+            'id' => [
+                'numeric',
+                'required',
+                'exists:placemarks,id,deleted_at,NULL',
+            ],
+        ]);
+
+        $placemark = Placemark::query()->find($data['id']);
+
+        $placemark->load('location');
+
+        return [
+            'placemark' => $placemark,
+        ];
+    }
+
+    /**
+     * Добавление метки.
      *
      * @return array
      *
      * @throws JsonRpcException|InvalidParametersException
      */
-    public function addPoint()
+    public function addPlacemark()
     {
         if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
@@ -51,30 +77,30 @@ class PointController
         $user = auth()->user();
 
         $data = $this->validateAndFilter([
-            'point' => [
+            'placemark' => [
                 'array',
                 'required',
             ],
-            'point.dive_site_id' => [
+            'placemark.dive_site_id' => [
                 'numeric',
                 'required',
                 'exists:dive_sites,id,deleted_at,NULL',
             ],
-            'point.type' => [
+            'placemark.type' => [
                 'numeric',
                 'required',
                 Rule::in([
-                    Point::TYPE_MISC,
-                    Point::TYPE_SHORE,
-                    Point::TYPE_SUBMERGED_OBJECT,
+                    Placemark::TYPE_MISC,
+                    Placemark::TYPE_SHORE,
+                    Placemark::TYPE_SUBMERGED_OBJECT,
                 ]),
             ],
-            'point.title' => [
+            'placemark.title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'point.description' => [
+            'placemark.description' => [
                 'string',
                 'nullable',
             ],
@@ -92,23 +118,23 @@ class PointController
             ],
         ]);
 
-        $point = new Point();
+        $placemark = new Placemark();
 
-        $point->user_id = $user->id;
+        $placemark->user_id = $user->id;
 
-        $point->fill($data['point']);
+        $placemark->fill($data['placemark']);
 
-        $point->save();
+        $placemark->save();
 
-        $point->location()->create($data['location']);
+        $placemark->location()->create($data['location']);
 
-        $point
+        $placemark
             ->refresh()
             ->load('location');
 
         return [
-            'message' => 'Готово!',
-            'point'   => $point,
+            'message'   => 'Готово!',
+            'placemark' => $placemark,
         ];
     }
 }

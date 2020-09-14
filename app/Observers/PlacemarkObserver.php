@@ -2,17 +2,17 @@
 
 namespace App\Observers;
 
-use App\Models\Point;
+use App\Models\Placemark;
 
 /**
  * Class CourseObserver.
  */
-class PointObserver
+class PlacemarkObserver
 {
     /**
-     * @param Point $course
+     * @param Placemark $course
      */
-    public function deleting(Point $course)
+    public function deleting(Placemark $course)
     {
         $course->location()->delete();
     }

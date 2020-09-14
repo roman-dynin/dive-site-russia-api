@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $user_id
  * @property Course[] $courses
- * @property Point[] $points
+ * @property Placemark[] $placemarks
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -62,12 +62,12 @@ class DiveSite extends Model
     }
 
     /**
-     * Точки.
+     * Метки.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function points()
+    public function placemarks()
     {
-        return $this->hasMany(Point::class);
+        return $this->hasMany(Placemark::class);
     }
 }

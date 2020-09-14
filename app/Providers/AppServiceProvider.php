@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Models\Course;
 use App\Models\DiveSite;
-use App\Models\Point;
+use App\Models\Placemark;
 use App\Observers\CourseObserver;
 use App\Observers\DiveSiteObserver;
-use App\Observers\PointObserver;
+use App\Observers\PlacemarkObserver;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         DiveSite::observe(DiveSiteObserver::class);
 
-        Point::observe(PointObserver::class);
+        Placemark::observe(PlacemarkObserver::class);
 
         Course::observe(CourseObserver::class);
     }

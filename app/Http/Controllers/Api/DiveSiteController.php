@@ -16,7 +16,7 @@ class DiveSiteController
     use JsonRpcController;
 
     /**
-     * Получение мест погружений.
+     * Получение мест.
      *
      * @return array
      */
@@ -28,6 +28,32 @@ class DiveSiteController
 
         return [
             'diveSites' => $diveSites,
+        ];
+    }
+
+    /**
+     * Получение места.
+     *
+     * @return array
+     *
+     * @throws InvalidParametersException
+     */
+    public function getDiveSiteById()
+    {
+        $data = $this->validateAndFilter([
+            'id' => [
+                'numeric',
+                'required',
+                'exists:dive_sites,id,deleted_at,NULL',
+            ],
+        ]);
+
+        $diveSite = DiveSite::query()->find($data['id']);
+
+        $diveSite->load('location');
+
+        return [
+            'diveSite' => $diveSite,
         ];
     }
 
