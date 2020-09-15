@@ -32,6 +32,32 @@ class CourseController
     }
 
     /**
+     * Получение курса.
+     *
+     * @return array
+     *
+     * @throws InvalidParametersException
+     */
+    public function getCourseById()
+    {
+        $data = $this->validateAndFilter([
+            'id' => [
+                'numeric',
+                'required',
+                'exists:courses,id,deleted_at,NULL',
+            ],
+        ]);
+
+        $course = Course::query()->find($data['id']);
+
+        $course->load('locations');
+
+        return [
+            'course' => $course,
+        ];
+    }
+
+    /**
      * Добавление курса.
      *
      * @throws JsonRpcException|InvalidParametersException
@@ -48,25 +74,16 @@ class CourseController
         $user = auth()->user();
 
         $data = $this->validateAndFilter([
-            'course' => [
-                'array',
-                'required',
-            ],
-            'course.dive_site_id' => [
-                'numeric',
-                'required',
-                'exists:dive_sites,id,deleted_at,NULL',
-            ],
-            'course.title' => [
+            'title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'course.description' => [
+            'description' => [
                 'string',
                 'nullable',
             ],
-            'course.direction' => [
+            'direction' => [
                 'numeric',
                 'required',
                 'min:0',
@@ -95,9 +112,90 @@ class CourseController
 
         $course->user_id = $user->id;
 
-        $course->fill($data['course']);
+        $course->fill($data);
 
         $course->save();
+
+        $course->locations()->createMany($data['locations']);
+
+        $course
+            ->refresh()
+            ->load('locations');
+
+        return [
+            'message' => 'Готово!',
+            'course'  => $course,
+        ];
+    }
+
+    /**
+     * Редактирование курса.
+     *
+     * @throws JsonRpcException|InvalidParametersException
+     */
+    public function updateCourseById()
+    {
+        if (! auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
+        $data = $this->validateAndFilter([
+            'id' => [
+                'required',
+                'numeric',
+                'exists:courses,id,deleted_at,NULL',
+            ],
+            'title' => [
+                'string',
+                'required',
+                'max:255',
+            ],
+            'description' => [
+                'string',
+                'nullable',
+            ],
+            'direction' => [
+                'numeric',
+                'required',
+                'min:0',
+                'max:360',
+            ],
+            'locations' => [
+                'array',
+                'required',
+                'size:2',
+            ],
+            'locations.*' => [
+                'array',
+                'required',
+            ],
+            'locations.*.lat' => [
+                'numeric',
+                'required',
+            ],
+            'locations.*.lng' => [
+                'numeric',
+                'required',
+            ],
+        ]);
+
+        /**
+         * @var Course $course
+         */
+        $course = Course::query()->find($data['id']);
+
+        $course->user_id = $user->id;
+
+        $course->fill($data);
+
+        $course->save();
+
+        $course->locations()->delete();
 
         $course->locations()->createMany($data['locations']);
 

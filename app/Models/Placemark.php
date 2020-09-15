@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Placemark.
  *
- *
  * @property int $user_id
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -23,14 +22,19 @@ class Placemark extends Model
     public const TYPE_MISC = 0;
 
     /**
+     * Место погружения.
+     */
+    public const TYPE_DIVE_SITE = 1;
+
+    /**
      * Берег.
      */
-    public const TYPE_SHORE = 1;
+    public const TYPE_SHORE = 2;
 
     /**
      * Затопленный объект
      */
-    public const TYPE_SUBMERGED_OBJECT = 2;
+    public const TYPE_SUBMERGED_OBJECT = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +43,6 @@ class Placemark extends Model
      */
     protected $fillable = [
         'user_id',
-        'dive_site_id',
         'type',
         'title',
         'description',
@@ -51,11 +54,10 @@ class Placemark extends Model
      * @var array
      */
     protected $casts = [
-        'user_id'      => 'integer',
-        'dive_site_id' => 'integer',
-        'type'         => 'integer',
-        'created_at'   => 'datetime:Y-m-d H:i:s',
-        'updated_at'   => 'datetime:Y-m-d H:i:s',
+        'user_id'    => 'integer',
+        'type'       => 'integer',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**

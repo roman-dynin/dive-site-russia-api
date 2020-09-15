@@ -21,8 +21,6 @@ class CreatePlacemarksTable extends Migration
 
             $table->foreignId('user_id');
 
-            $table->foreignId('dive_site_id');
-
             $table->tinyInteger('type');
 
             $table->string('title');

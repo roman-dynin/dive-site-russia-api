@@ -77,30 +77,22 @@ class PlacemarkController
         $user = auth()->user();
 
         $data = $this->validateAndFilter([
-            'placemark' => [
-                'array',
-                'required',
-            ],
-            'placemark.dive_site_id' => [
-                'numeric',
-                'required',
-                'exists:dive_sites,id,deleted_at,NULL',
-            ],
-            'placemark.type' => [
+            'type' => [
                 'numeric',
                 'required',
                 Rule::in([
                     Placemark::TYPE_MISC,
+                    Placemark::TYPE_DIVE_SITE,
                     Placemark::TYPE_SHORE,
                     Placemark::TYPE_SUBMERGED_OBJECT,
                 ]),
             ],
-            'placemark.title' => [
+            'title' => [
                 'string',
                 'required',
                 'max:255',
             ],
-            'placemark.description' => [
+            'description' => [
                 'string',
                 'nullable',
             ],
@@ -122,11 +114,92 @@ class PlacemarkController
 
         $placemark->user_id = $user->id;
 
-        $placemark->fill($data['placemark']);
+        $placemark->fill($data);
 
         $placemark->save();
 
         $placemark->location()->create($data['location']);
+
+        $placemark
+            ->refresh()
+            ->load('location');
+
+        return [
+            'message'   => 'Готово!',
+            'placemark' => $placemark,
+        ];
+    }
+
+
+    /**
+     * Редактирование метки.
+     *
+     * @return array
+     *
+     * @throws JsonRpcException|InvalidParametersException
+     */
+    public function updatePlacemarkById()
+    {
+        if (! auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
+        $data = $this->validateAndFilter([
+            'id' => [
+                'required',
+                'numeric',
+                'exists:placemarks,id,deleted_at,NULL',
+            ],
+            'type' => [
+                'numeric',
+                'required',
+                Rule::in([
+                    Placemark::TYPE_MISC,
+                    Placemark::TYPE_DIVE_SITE,
+                    Placemark::TYPE_SHORE,
+                    Placemark::TYPE_SUBMERGED_OBJECT,
+                ]),
+            ],
+            'title' => [
+                'string',
+                'required',
+                'max:255',
+            ],
+            'description' => [
+                'string',
+                'nullable',
+            ],
+            'location' => [
+                'array',
+                'required',
+            ],
+            'location.lat' => [
+                'numeric',
+                'required',
+            ],
+            'location.lng' => [
+                'numeric',
+                'required',
+            ],
+        ]);
+
+        /**
+         * @var Placemark $placemark
+         */
+        $placemark = Placemark::query()->find($data['id']);
+
+        $placemark->user_id = $user->id;
+
+        $placemark->fill($data);
+
+        $placemark->save();
+
+        $placemark->location()->update($data['location']);
 
         $placemark
             ->refresh()
