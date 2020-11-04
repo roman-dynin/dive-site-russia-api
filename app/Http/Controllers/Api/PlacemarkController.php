@@ -17,7 +17,7 @@ class PlacemarkController
     use JsonRpcController;
 
     /**
-     * Получение точек.
+     * Получение меток.
      *
      * @return array
      */
@@ -33,7 +33,7 @@ class PlacemarkController
     }
 
     /**
-     * Получение точки.
+     * Получение метки.
      *
      * @return array
      *
@@ -82,6 +82,7 @@ class PlacemarkController
                 'required',
                 Rule::in([
                     Placemark::TYPE_MISC,
+                    Placemark::TYPE_DIVE_CLUB,
                     Placemark::TYPE_DIVE_SITE,
                     Placemark::TYPE_SHORE,
                     Placemark::TYPE_SUBMERGED_OBJECT,
@@ -125,11 +126,9 @@ class PlacemarkController
             ->load('location');
 
         return [
-            'message'   => 'Готово!',
             'placemark' => $placemark,
         ];
     }
-
 
     /**
      * Редактирование метки.
@@ -143,11 +142,6 @@ class PlacemarkController
         if (! auth()->check()) {
             throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
         }
-
-        /**
-         * @var User $user
-         */
-        $user = auth()->user();
 
         $data = $this->validateAndFilter([
             'id' => [
@@ -193,8 +187,6 @@ class PlacemarkController
          */
         $placemark = Placemark::query()->find($data['id']);
 
-        $placemark->user_id = $user->id;
-
         $placemark->fill($data);
 
         $placemark->save();
@@ -206,8 +198,36 @@ class PlacemarkController
             ->load('location');
 
         return [
-            'message'   => 'Готово!',
             'placemark' => $placemark,
         ];
+    }
+
+    /**
+     * Удаление метки.
+     *
+     * @throws JsonRpcException
+     */
+    public function deletePlacemarkById()
+    {
+        if (! auth()->check()) {
+            throw new JsonRpcException(JsonRpcException::CODE_UNAUTHORIZED);
+        }
+
+        $data = $this->validateAndFilter([
+            'id' => [
+                'required',
+                'numeric',
+                'exists:placemarks,id,deleted_at,NULL',
+            ],
+        ]);
+
+        /**
+         * @var Placemark $placemark
+         */
+        $placemark = Placemark::query()->find($data['id']);
+
+        $placemark->delete();
+
+        return [];
     }
 }

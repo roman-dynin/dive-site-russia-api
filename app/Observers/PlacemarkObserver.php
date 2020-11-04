@@ -5,15 +5,15 @@ namespace App\Observers;
 use App\Models\Placemark;
 
 /**
- * Class CourseObserver.
+ * Class PlacemarkObserver.
  */
 class PlacemarkObserver
 {
     /**
-     * @param Placemark $course
+     * @param Placemark $placemark
      */
-    public function deleting(Placemark $course)
+    public function deleting(Placemark $placemark)
     {
-        $course->location()->delete();
+        $placemark->location()->delete();
     }
 }

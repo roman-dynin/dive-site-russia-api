@@ -6,6 +6,7 @@ use Tochka\JsonRpc\Facades\JsonRpcServer;
 /**
  * @var \Laravel\Lumen\Routing\Router $router
  */
+
 $router->get('/api/v1/user', [
     'uses' => 'AuthController@getUser',
 ]);

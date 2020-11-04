@@ -32,7 +32,8 @@ class CreatePlacemarksTable extends Migration
             $table->softDeletes();
 
             $table->index([
-                'dive_site_id',
+                'user_id',
+                'type',
             ]);
         });
     }

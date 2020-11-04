@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Location.
  *
- *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Location extends Model

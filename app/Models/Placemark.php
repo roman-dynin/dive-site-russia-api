@@ -22,19 +22,24 @@ class Placemark extends Model
     public const TYPE_MISC = 0;
 
     /**
+     * Дайвинг-клуб.
+     */
+    public const TYPE_DIVE_CLUB = 1;
+
+    /**
      * Место погружения.
      */
-    public const TYPE_DIVE_SITE = 1;
+    public const TYPE_DIVE_SITE = 2;
 
     /**
      * Берег.
      */
-    public const TYPE_SHORE = 2;
+    public const TYPE_SHORE = 3;
 
     /**
-     * Затопленный объект
+     * Затопленный объект.
      */
-    public const TYPE_SUBMERGED_OBJECT = 3;
+    public const TYPE_SUBMERGED_OBJECT = 4;
 
     /**
      * The attributes that are mass assignable.

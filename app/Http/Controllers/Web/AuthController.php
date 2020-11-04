@@ -22,7 +22,7 @@ class AuthController extends BaseController
     }
 
     /**
-     * Вход через ВКонтакте.
+     * Обработка входа через ВКонтакте.
      *
      * @return \Illuminate\Http\RedirectResponse
      */

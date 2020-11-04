@@ -12,7 +12,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * Class User.
  *
- *
  * @property int $id
  *
  * @mixin \Illuminate\Database\Eloquent\Builder
