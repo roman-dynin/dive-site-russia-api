@@ -154,6 +154,7 @@ class PlacemarkController
                 'required',
                 Rule::in([
                     Placemark::TYPE_MISC,
+                    Placemark::TYPE_DIVE_CLUB,
                     Placemark::TYPE_DIVE_SITE,
                     Placemark::TYPE_SHORE,
                     Placemark::TYPE_SUBMERGED_OBJECT,
