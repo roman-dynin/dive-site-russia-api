@@ -10,4 +10,9 @@ steps:
   - name: build
     commands:
       - docker build --tag dive-site-russia .
-      - docker-compose -f /home/strftime/dive-site-russia-deploy/docker-compose.yml up -d --no-deps --remove-orphans api
+  - name: deploy
+    environment:
+      DIVE_SITE_RUSSIA_DEPLOY_PATH:
+        from_secret: dive-site-russia-deploy-path
+    commands:
+      - docker-compose -f ${DIVE_SITE_RUSSIA_DEPLOY_PATH}/docker-compose.yml up -d --force-recreate --remove-orphans --no-deps api
