@@ -2,4 +2,4 @@
 
 `php -S localhost:8000 -t public`
 
-Тест CI 1
+Тест CI 2
