@@ -16,7 +16,7 @@ steps:
       DIVE_SITE_RUSSIA_DEPLOY_PATH:
         from_secret: dive-site-russia-deploy-path
     commands:
-      - docker build --tag dive-site-russia .
+      - docker build --tag dive-site-russia-api .
   - name: recreate
     environment:
       DIVE_SITE_RUSSIA_DEPLOY_PATH:
