@@ -18,9 +18,9 @@ RUN docker-php-ext-install \
     mbstring \
     gd
 
-RUN mkdir -p /vaw/www/api
+RUN mkdir -p /vaw/www/dive-site-russia-api
 
-WORKDIR /var/www/api
+WORKDIR /var/www/dive-site-russia-api
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php && \
