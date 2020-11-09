@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+run:
+  shell: bash
+  working-directory: ./
+
 jobs:
   build:
     runs-on: self-hosted
