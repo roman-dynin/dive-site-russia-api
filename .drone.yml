@@ -6,8 +6,15 @@ platform:
   os: linux
   arch: amd64
 
+trigger:
+  branch:
+    - master
+
 steps:
   - name: build
+    environment:
+      DIVE_SITE_RUSSIA_DEPLOY_PATH:
+        from_secret: dive-site-russia-deploy-path
     commands:
       - docker build --tag dive-site-russia .
   - name: recreate
@@ -16,3 +23,9 @@ steps:
         from_secret: dive-site-russia-deploy-path
     commands:
       - docker-compose -f $${DIVE_SITE_RUSSIA_DEPLOY_PATH}/docker-compose.yml up -d --force-recreate --remove-orphans --no-deps api
+  - name: migrate
+    environment:
+      DIVE_SITE_RUSSIA_DEPLOY_PATH:
+        from_secret: dive-site-russia-deploy-path
+    commands:
+      - docker-compose -f $${DIVE_SITE_RUSSIA_DEPLOY_PATH}/docker-compose.yml exec php artisan migrate
