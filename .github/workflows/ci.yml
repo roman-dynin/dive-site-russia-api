@@ -6,9 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
-run:
-  shell: bash
-  working-directory: ./
+defaults:
+  run:
+    shell: bash
+    working-directory: ./
 
 jobs:
   build:
