@@ -10,7 +10,7 @@ steps:
   - name: build
     commands:
       - docker build --tag dive-site-russia .
-  - name: deploy
+  - name: recreate
     environment:
       DIVE_SITE_RUSSIA_DEPLOY_PATH:
         from_secret: dive-site-russia-deploy-path
