@@ -2,15 +2,11 @@ kind: pipeline
 type: exec
 name: default
 
-trigger:
-  branch:
-    - master
-
 platform:
   os: linux
   arch: amd64
 
 steps:
-  - name: build
+  - name: greeting
     commands:
-      - cd ../dive-site-russia/deploy && docker-compose up -d --build --no-deps api
+      - echo hello world
