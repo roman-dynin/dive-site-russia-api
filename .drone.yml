@@ -28,4 +28,4 @@ steps:
       DIVE_SITE_RUSSIA_DEPLOY_PATH:
         from_secret: dive-site-russia-deploy-path
     commands:
-      - docker-compose -f $${DIVE_SITE_RUSSIA_DEPLOY_PATH}/docker-compose.yml exec api php artisan migrate
+      - docker-compose -f $${DIVE_SITE_RUSSIA_DEPLOY_PATH}/docker-compose.yml exec -T api php artisan migrate
