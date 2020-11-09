@@ -9,4 +9,4 @@ platform:
 steps:
   - name: greeting
     commands:
-      - docker build
+      - docker build .
