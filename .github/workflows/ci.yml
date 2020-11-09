@@ -17,6 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Build
-        run: ../dive-site-russia-deply/docker-compose up -d --build --no-deps api
+        run: docker-compose -f ../dive-site-russia-deploy/docker-compose.yml up -d --build --no-deps api
       - name: Migrations
-        run: ../dive-site-russia-deply/docker-compose exec api php artisan migrate
+        run: docker-compose -f ../dive-site-russia-deploy/docker-compose.yml exec api php artisan migrate
