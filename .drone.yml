@@ -20,7 +20,7 @@ steps:
       DIVE_SITE_RUSSIA_API_PATH:
         from_secret: dive-site-russia-api-path
     commands:
-      - cd $${DIVE_SITE_RUSSIA_API_PATH} && ssh-agent -s && ssh-add /home/strftime/.ssh/id_ed25519 && git pull
+      - cd $${DIVE_SITE_RUSSIA_API_PATH} && GIT_SSH_COMMAND='ssh -i /home/strftime/.ssh/id_ed25519' git pull
 
   - name: recreate
     environment:
