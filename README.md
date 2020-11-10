@@ -1,3 +1,7 @@
 # Места для погружений
 
-`php -S localhost:8000 -t public`
+Запуск сервера для разработки:
+
+```
+$ php -S localhost:8000 -t public
+```
