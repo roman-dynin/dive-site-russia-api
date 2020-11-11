@@ -24,7 +24,10 @@ class PlacemarkController
     public function getPlacemarks()
     {
         $placemarks = Placemark::query()
-            ->with('location')
+            ->with([
+                'user',
+                'location',
+            ])
             ->get();
 
         return [
@@ -51,7 +54,10 @@ class PlacemarkController
 
         $placemark = Placemark::query()->find($data['id']);
 
-        $placemark->load('location');
+        $placemark->load([
+            'user',
+            'location',
+        ]);
 
         return [
             'placemark' => $placemark,
@@ -123,7 +129,10 @@ class PlacemarkController
 
         $placemark
             ->refresh()
-            ->load('location');
+            ->load([
+                'user',
+                'location',
+            ]);
 
         return [
             'placemark' => $placemark,
@@ -196,7 +205,10 @@ class PlacemarkController
 
         $placemark
             ->refresh()
-            ->load('location');
+            ->load([
+                'user',
+                'location',
+            ]);
 
         return [
             'placemark' => $placemark,
