@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Confirmation;
+use Tochka\JsonRpc\Exceptions\JsonRpcException;
 use Tochka\JsonRpc\Exceptions\RPC\InvalidParametersException;
 use Tochka\JsonRpc\Traits\JsonRpcController;
 
@@ -20,7 +22,7 @@ class UserController
      *
      * @return array
      *
-     * @throws InvalidParametersException
+     * @throws InvalidParametersException|JsonRpcException
      */
     public function signup()
     {
@@ -45,7 +47,28 @@ class UserController
                 'string',
                 'required',
             ],
+            'confirmation_id' => [
+                'numeric',
+                'required',
+                'exists:confirmations,id',
+            ],
+            'confirmation_code' => [
+                'string',
+                'required',
+            ],
         ]);
+
+        /** @var Confirmation $confirmation */
+        $confirmation = Confirmation::query()->find($data['confirmation_id']);
+
+        if ($confirmation->code !== $data['confirmation_code']) {
+            throw new JsonRpcException(
+                JsonRpcException::CODE_INVALID_PARAMETERS,
+                'Неверный код подтверждения'
+            );
+        }
+
+        $confirmation->delete();
 
         $user = new User();
 
